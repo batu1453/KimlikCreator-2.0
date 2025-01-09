@@ -2,18 +2,18 @@
 <html lang="tr">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Türkiye Kimlik Kartı Oluşturucu</title>
     <link href="//fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="img/favicon.png" type="image/png">
     <style>
         body {
             font-family: 'Rubik', sans-serif;
             background-color: #f8f9fa;
             color: #212529;
+            margin-bottom: 120px;
         }
 
         .navbar {
@@ -22,10 +22,7 @@
 
         .card {
             background-color: #007bff;
-        }
-
-        .card-body {
-            text-align: center;
+            color: white;
         }
 
         .form-control {
@@ -43,37 +40,43 @@
             border-color: #00408b;
         }
 
+        .output-card {
+            margin-top: 20px;
+        }
+
+        .output-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .output-container img {
+            border: 2px solid #fff;
+            border-radius: 0.5rem;
+            max-width: 100%;
+            height: auto;
+        }
+
         footer {
             background-color: #0062cc;
             color: white;
             text-align: center;
             padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
 
-        .image-preview {
-            width: 100px;
-            height: 120px;
-            border: 2px solid #ccc;
-            border-radius: 0.5rem;
-            object-fit: cover;
-            margin-top: 1rem;
-        }
-
-        @media (max-width: 576px) {
-            .card {
-                background-color: #0056b3;
-            }
-
-            footer {
-                font-size: 0.8rem;
-            }
+        .output-container canvas {
+            display: none;
         }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg shadow py-3">
-        <div class="container-fluid">
+        <div class="container">
             <a class="navbar-brand mx-auto" href="index.html">
                 <img src="img/turkey.svg" alt="Turkey" height="35" class="me-3">
                 Türkiye Kimlik Kartı Oluşturucu
@@ -81,70 +84,66 @@
         </div>
     </nav>
 
-    <div class="container-fluid my-5">
+    <div class="container my-5">
         <div class="card rounded shadow">
-            <div class="card-body">
-                <div class="h4 mb-2">Destek Olun</div>
-                <p>Bu tamamen ücretsiz bir araçtır. Eğer bu araç işinize yaradıysa ve çalışmamı takdir etmek istiyorsanız aşağıdaki Instagram adresimi takip edebilirsiniz.</p>
-                <b>Instagram adresim:</b> <span>by3lish</span>
+            <div class="card-body text-center">
+                <div class="h4 mb-2">Nasıl Kullanacağım?</div>
+                <p>Kimlik bilgilerini doldurduktan sonra görselleri anında güncellenmiş şekilde görebilirsiniz. Butonlara basarak görselleri indirebilirsiniz.</p>
             </div>
         </div>
 
         <div class="card rounded shadow mt-4">
             <div class="card-body">
-                <form class="row" id="form">
+                <form id="form" class="row">
                     <div class="col-md-6">
                         <label>İsim:</label>
-                        <input class="form-control mt-2 shadow" name="name" placeholder="Kimlik üzerinde yazacak ismi girin." required>
+                        <input class="form-control mt-2 shadow" id="name" placeholder="İsim" required>
                     </div>
-                    <div class="col-md-6 mt-3 mt-md-0">
+                    <div class="col-md-6">
                         <label>Soyisim:</label>
-                        <input class="form-control mt-2 shadow" name="surname" placeholder="Kimlik üzerinde yazacak soyismi girin." required>
+                        <input class="form-control mt-2 shadow" id="surname" placeholder="Soyisim" required>
                     </div>
                     <div class="col-md-6 mt-3">
                         <label>Doğum Tarihi:</label>
-                        <input class="form-control mt-2 shadow" name="birth_date" type="date" required>
+                        <input class="form-control mt-2 shadow" id="birth_date" type="date" required>
                     </div>
                     <div class="col-md-6 mt-3">
                         <label>Cinsiyet:</label>
-                        <select name="gender" class="form-control mt-2 shadow">
+                        <select id="gender" class="form-control mt-2 shadow">
                             <option value="E / M">Erkek</option>
                             <option value="K / F">Kadın</option>
                         </select>
                     </div>
                     <div class="col-md-6 mt-3">
                         <label>T.C. Kimlik No:</label>
-                        <input class="form-control mt-2 shadow" id="tckn" name="tckn" placeholder="TC numarasını girin." required>
+                        <input class="form-control mt-2 shadow" id="tckn" placeholder="T.C. Kimlik No" required>
                     </div>
                     <div class="col-md-6 mt-3">
                         <label>Seri No:</label>
-                        <input class="form-control mt-2 shadow" name="document_number" placeholder="Seri numarasını girin." required>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <label>Son Geçerlilik Tarihi:</label>
-                        <input class="form-control mt-2 shadow" name="valid_until" type="date" required>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <label>Uyruk:</label>
-                        <input class="form-control mt-2 shadow" value="T.C./TUR" readonly>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <label>Anne İsmi:</label>
-                        <input class="form-control mt-2 shadow" name="mother_name" placeholder="Anne ismini girin." required>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <label>Baba Adı:</label>
-                        <input class="form-control mt-2 shadow" name="father_name" placeholder="Baba ismini girin." required>
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <label>Kimlik Fotoğrafı:</label>
-                        <input class="form-control mt-2 shadow" type="file" id="image-input" name="image" accept="image/*" required>
-                        <img id="image-preview" class="image-preview" src="#" alt="Önizleme" style="display:none;">
+                        <input class="form-control mt-2 shadow" id="document_number" placeholder="Seri No" required>
                     </div>
                     <div class="col-md-12 mt-4">
-                        <button type="submit" class="btn btn-primary shadow w-100">Kimlik Oluştur</button>
+                        <button type="button" class="btn btn-primary shadow w-100" id="create-card">Kimlik Oluştur</button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="output-card">
+            <div class="card rounded shadow">
+                <div class="card-body text-center">
+                    <div class="h4 mb-2">Oluşturulan Kimlik Görselleri</div>
+                    <div class="output-container">
+                        <div>
+                            <img id="front-image" src="img/front-empty.png" alt="Ön Yüz">
+                            <button class="btn btn-primary shadow mt-3" id="download-front" disabled>Ön Yüzü İndir</button>
+                        </div>
+                        <div>
+                            <img id="back-image" src="img/back-empty.png" alt="Arka Yüz">
+                            <button class="btn btn-primary shadow mt-3" id="download-back" disabled>Arka Yüzü İndir</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -155,27 +154,57 @@
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('image-input').addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            const preview = document.getElementById('image-preview');
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    preview.src = event.target.result;
-                    preview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                preview.style.display = 'none';
-            }
-        });
-
-        document.getElementById('form').addEventListener('submit', function (e) {
+        document.getElementById('create-card').addEventListener('click', function () {
+            const name = document.getElementById('name').value;
+            const surname = document.getElementById('surname').value;
+            const birthDate = document.getElementById('birth_date').value;
+            const gender = document.getElementById('gender').value;
             const tckn = document.getElementById('tckn').value;
-            if (!/^[1-9][0-9]{10}$/.test(tckn)) {
-                alert('Geçersiz T.C. Kimlik Numarası!');
-                e.preventDefault();
-            }
+            const documentNumber = document.getElementById('document_number').value;
+
+            const frontImage = document.getElementById('front-image');
+            const backImage = document.getElementById('back-image');
+
+            // Ön Yüz Bilgileri Güncelleme
+            const canvasFront = document.createElement('canvas');
+            canvasFront.width = frontImage.width;
+            canvasFront.height = frontImage.height;
+            const ctxFront = canvasFront.getContext('2d');
+            ctxFront.drawImage(frontImage, 0, 0);
+            ctxFront.font = "16px Rubik";
+            ctxFront.fillStyle = "#000";
+            ctxFront.fillText(name + " " + surname, 50, 100);
+            ctxFront.fillText(tckn, 50, 120);
+            frontImage.src = canvasFront.toDataURL();
+
+            // Arka Yüz Bilgileri Güncelleme
+            const canvasBack = document.createElement('canvas');
+            canvasBack.width = backImage.width;
+            canvasBack.height = backImage.height;
+            const ctxBack = canvasBack.getContext('2d');
+            ctxBack.drawImage(backImage, 0, 0);
+            ctxBack.font = "16px Rubik";
+            ctxBack.fillStyle = "#000";
+            ctxBack.fillText("Doğum Tarihi: " + birthDate, 50, 100);
+            ctxBack.fillText("Seri No: " + documentNumber, 50, 120);
+            backImage.src = canvasBack.toDataURL();
+
+            document.getElementById('download-front').disabled = false;
+            document.getElementById('download-back').disabled = false;
+
+            document.getElementById('download-front').addEventListener('click', function () {
+                const link = document.createElement('a');
+                link.href = canvasFront.toDataURL();
+                link.download = "kimlik-on.png";
+                link.click();
+            });
+
+            document.getElementById('download-back').addEventListener('click', function () {
+                const link = document.createElement('a');
+                link.href = canvasBack.toDataURL();
+                link.download = "kimlik-arka.png";
+                link.click();
+            });
         });
     </script>
 </body>
