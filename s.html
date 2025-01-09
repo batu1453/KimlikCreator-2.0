@@ -1,219 +1,154 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Türkiye Kimlik Kartı Oluşturucu</title>
-    <link href="//fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Rubik', sans-serif;
-            background-color: #000;
-            color: #fff;
-            margin-bottom: 120px;
-        }
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Türkiye Kimlik Kartı Oluşturucu</title>
+	<link href="//fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="img/favicon.png" type="image/png">
+	<style>
+		body {
+			background-color: #121212;
+			color: #ffffff;
+			font-family: 'Rubik', sans-serif;
+			margin: 0;
+			padding: 0;
+		}
 
-        .navbar {
-            background-color: #121212;
-            border-bottom: 1px solid #333;
-        }
+		.navbar {
+			background-color: #1f1f1f;
+			border-bottom: 1px solid #333333;
+			padding: 1rem;
+		}
 
-        .navbar-brand img {
-            filter: invert(1);
-        }
+		.navbar-brand img {
+			filter: brightness(0.9);
+		}
 
-        .card {
-            background-color: #1c1c1c;
-            border: 1px solid #333;
-        }
+		.container {
+			padding: 2rem;
+		}
 
-        .form-control {
-            border-radius: 0.5rem;
-            background-color: #000;
-            color: #fff;
-            border: 1px solid #444;
-        }
+		.card {
+			background-color: #1f1f1f;
+			border: none;
+			margin-bottom: 1.5rem;
+			padding: 1.5rem;
+			border-radius: 0.5rem;
+		}
 
-        .form-control:focus {
-            border-color: #666;
-            background-color: #111;
-        }
+		.form-control {
+			background-color: #2a2a2a;
+			border: none;
+			color: #ffffff;
+			padding: 0.75rem;
+			border-radius: 0.25rem;
+		}
 
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: #fff;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
+		.form-control:focus {
+			box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+			outline: none;
+		}
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
+		.btn {
+			background-color: #4caf50;
+			color: #ffffff;
+			border: none;
+			padding: 0.75rem 1.5rem;
+			border-radius: 0.5rem;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
 
-        .output-card {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-top: 20px;
-        }
+		.btn:hover {
+			background-color: #45a049;
+		}
 
-        .output-card img {
-            width: 250px;
-            height: auto;
-            border: 2px solid #333;
-            border-radius: 0.5rem;
-        }
+		.btn[disabled] {
+			background-color: #555555;
+			cursor: not-allowed;
+		}
 
-        footer {
-            background-color: #121212;
-            color: #666;
-            text-align: center;
-            padding: 1rem 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            border-top: 1px solid #333;
-        }
-    </style>
+		.card img {
+			width: 100%;
+			border-radius: 0.5rem;
+		}
+
+		.footer {
+			background-color: #1f1f1f;
+			text-align: center;
+			padding: 1rem;
+			margin-top: 2rem;
+			border-top: 1px solid #333333;
+			color: #cccccc;
+		}
+	</style>
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg shadow py-3">
-        <div class="container">
-            <a class="navbar-brand mx-auto" href="index.html">
-                <img src="img/turkey.svg" alt="Turkey" height="35" class="me-3">
-                Türkiye Kimlik Kartı Oluşturucu
-            </a>
-        </div>
-    </nav>
-
-    <div class="container my-5">
-        <div class="card rounded shadow">
-            <div class="card-body text-center">
-                <div class="h4 mb-2">Nasıl Kullanacağım?</div>
-                <p>Kimlik bilgilerini doldurduktan sonra görseller anında güncellenir. Butonlara basarak görselleri indirebilirsiniz.</p>
-            </div>
-        </div>
-
-        <div class="card rounded shadow mt-4">
-            <div class="card-body">
-                <form id="form" class="row">
-                    <div class="col-md-6">
-                        <label>İsim:</label>
-                        <input class="form-control mt-2 shadow" id="name" placeholder="İsim" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label>Soyisim:</label>
-                        <input class="form-control mt-2 shadow" id="surname" placeholder="Soyisim" required>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <label>Doğum Tarihi:</label>
-                        <input class="form-control mt-2 shadow" id="birth_date" type="date" required>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <label>Cinsiyet:</label>
-                        <select id="gender" class="form-control mt-2 shadow">
-                            <option value="E / M">Erkek</option>
-                            <option value="K / F">Kadın</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <label>T.C. Kimlik No:</label>
-                        <input class="form-control mt-2 shadow" id="tckn" placeholder="T.C. Kimlik No" required>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <label>Seri No:</label>
-                        <input class="form-control mt-2 shadow" id="document_number" placeholder="Seri No" required>
-                    </div>
-                    <div class="col-md-12 mt-4">
-                        <button type="button" class="btn btn-primary shadow w-100" id="create-card">Kimlik Oluştur</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="output-card">
-            <div class="card rounded shadow">
-                <div class="card-body text-center">
-                    <div class="h4 mb-2">Oluşturulan Kimlik Görselleri</div>
-                    <div class="output-container">
-                        <div>
-                            <img id="front-image" src="img/front-empty.png" alt="Ön Yüz">
-                            <button class="btn btn-primary shadow mt-3" id="download-front" disabled>Ön Yüzü İndir</button>
-                        </div>
-                        <div>
-                            <img id="back-image" src="img/back-empty.png" alt="Arka Yüz">
-                            <button class="btn btn-primary shadow mt-3" id="download-back" disabled>Arka Yüzü İndir</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        &copy; 2025 Türkiye Kimlik Kartı Oluşturucu. Tüm Hakları Saklıdır.
-    </footer>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('create-card').addEventListener('click', function () {
-            const name = document.getElementById('name').value;
-            const surname = document.getElementById('surname').value;
-            const birthDate = document.getElementById('birth_date').value;
-            const gender = document.getElementById('gender').value;
-            const tckn = document.getElementById('tckn').value;
-            const documentNumber = document.getElementById('document_number').value;
-
-            const frontImage = document.getElementById('front-image');
-            const backImage = document.getElementById('back-image');
-
-            const canvasFront = document.createElement('canvas');
-            canvasFront.width = 250;
-            canvasFront.height = 150;
-            const ctxFront = canvasFront.getContext('2d');
-            ctxFront.drawImage(frontImage, 0, 0, 250, 150);
-            ctxFront.font = "12px Rubik";
-            ctxFront.fillStyle = "#fff";
-            ctxFront.fillText(`${name} ${surname}`, 20, 40);
-            ctxFront.fillText(`TCKN: ${tckn}`, 20, 60);
-
-            frontImage.src = canvasFront.toDataURL();
-
-            const canvasBack = document.createElement('canvas');
-            canvasBack.width = 250;
-            canvasBack.height = 150;
-            const ctxBack = canvasBack.getContext('2d');
-            ctxBack.drawImage(backImage, 0, 0, 250, 150);
-            ctxBack.font = "12px Rubik";
-            ctxBack.fillStyle = "#fff";
-            ctxBack.fillText(`Doğum Tarihi: ${birthDate}`, 20, 40);
-            ctxBack.fillText(`Seri No: ${documentNumber}`, 20, 60);
-
-            backImage.src = canvasBack.toDataURL();
-
-            document.getElementById('download-front').disabled = false;
-            document.getElementById('download-back').disabled = false;
-
-            document.getElementById('download-front').addEventListener('click', function () {
-                const link = document.createElement('a');
-                link.href = canvasFront.toDataURL();
-                link.download = "kimlik-on.png";
-                link.click();
-            });
-
-            document.getElementById('download-back').addEventListener('click', function () {
-                const link = document.createElement('a');
-                link.href = canvasBack.toDataURL();
-                link.download = "kimlik-arka.png";
-                link.click();
-            });
-        });
-    </script>
+	<nav class="navbar">
+		<div class="container">
+			<a class="navbar-brand" href="index.html">
+				<img src="img/turkey.svg" alt="Turkey" height="35" class="me-3">
+				Türkiye Kimlik Kartı Oluşturucu
+			</a>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="card">
+			<h4 class="mb-3">Destek Olun</h4>
+			<p>Bu tamamen ücretsiz bir araçtır. Eğer bu araç işinize yaradıysa ve çalışmamı takdir etmek istiyorsanız, aşağıdaki Instagram adresimi takip edebilirsiniz.</p>
+			<p><b>Instagram adresim:</b> <span>by3lish</span></p>
+		</div>
+		<div class="card">
+			<h4 class="mb-3">Nasıl Kullanacağım?</h4>
+			<p>Görseller yüksek kaliteli değildir, bundan ötürü direkt olarak orijinal halinde kullanmanız durumunda diğer sistemler sizin sahtecilik yaptığınızın farkına varabilir. Görselleri indirdikten sonra mockup yaparak kullanmanızı tavsiye ederim.</p>
+		</div>
+		<div class="card">
+			<form action="" id="form">
+				<div class="mb-3">
+					<label for="name">İsim:</label>
+					<input type="text" id="name" class="form-control" name="name" placeholder="Kimlik üzerinde yazacak ismi girin." required>
+				</div>
+				<div class="mb-3">
+					<label for="surname">Soyisim:</label>
+					<input type="text" id="surname" class="form-control" name="surname" placeholder="Kimlik üzerinde yazacak soyismi girin." required>
+				</div>
+				<div class="mb-3">
+					<label for="birth_date">Doğum Tarihi:</label>
+					<input type="date" id="birth_date" class="form-control" name="birth_date" required>
+				</div>
+				<div class="mb-3">
+					<label for="gender">Cinsiyet:</label>
+					<select id="gender" class="form-control" name="gender">
+						<option value="E / M">Erkek</option>
+						<option value="K / F">Kadın</option>
+					</select>
+				</div>
+				<div class="mb-3">
+					<label for="tckn">T.C. Kimlik No:</label>
+					<input type="text" id="tckn" class="form-control" name="tckn" placeholder="Kimlik üzerinde yazacak TC numarasını girin." required>
+				</div>
+				<div class="mb-3">
+					<label for="document_number">Seri No:</label>
+					<input type="text" id="document_number" class="form-control" name="document_number" placeholder="Kimlik üzerinde yazacak seri numarasını girin." required>
+				</div>
+				<div class="mb-3">
+					<label for="valid_until">Son Geçerlilik Tarihi:</label>
+					<input type="date" id="valid_until" class="form-control" name="valid_until" required>
+				</div>
+				<div class="mb-3">
+					<label for="image">Kimlik Fotoğrafı:</label>
+					<input type="file" id="image" class="form-control" name="image" accept="image/*" required>
+				</div>
+				<div class="d-flex justify-content-end">
+					<button type="submit" class="btn">Kimlik Oluştur</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="footer">
+		<p>&copy; 2025 Türkiye Kimlik Kartı Oluşturucu. Tüm hakları saklıdır.</p>
+	</div>
 </body>
-
 </html>
