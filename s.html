@@ -54,7 +54,16 @@
             border-color: #0056b3;
         }
 
-        .output-container img {
+        .output-card {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .output-card img {
+            width: 250px;
+            height: auto;
             border: 2px solid #333;
             border-radius: 0.5rem;
         }
@@ -86,7 +95,7 @@
         <div class="card rounded shadow">
             <div class="card-body text-center">
                 <div class="h4 mb-2">Nasıl Kullanacağım?</div>
-                <p>Kimlik bilgilerini doldurduktan sonra görselleri anında güncellenmiş şekilde görebilirsiniz. Butonlara basarak görselleri indirebilirsiniz.</p>
+                <p>Kimlik bilgilerini doldurduktan sonra görseller anında güncellenir. Butonlara basarak görselleri indirebilirsiniz.</p>
             </div>
         </div>
 
@@ -164,25 +173,27 @@
             const backImage = document.getElementById('back-image');
 
             const canvasFront = document.createElement('canvas');
-            canvasFront.width = frontImage.width;
-            canvasFront.height = frontImage.height;
+            canvasFront.width = 250;
+            canvasFront.height = 150;
             const ctxFront = canvasFront.getContext('2d');
-            ctxFront.drawImage(frontImage, 0, 0);
-            ctxFront.font = "16px Rubik";
+            ctxFront.drawImage(frontImage, 0, 0, 250, 150);
+            ctxFront.font = "12px Rubik";
             ctxFront.fillStyle = "#fff";
-            ctxFront.fillText(name + " " + surname, 50, 100);
-            ctxFront.fillText(tckn, 50, 120);
+            ctxFront.fillText(`${name} ${surname}`, 20, 40);
+            ctxFront.fillText(`TCKN: ${tckn}`, 20, 60);
+
             frontImage.src = canvasFront.toDataURL();
 
             const canvasBack = document.createElement('canvas');
-            canvasBack.width = backImage.width;
-            canvasBack.height = backImage.height;
+            canvasBack.width = 250;
+            canvasBack.height = 150;
             const ctxBack = canvasBack.getContext('2d');
-            ctxBack.drawImage(backImage, 0, 0);
-            ctxBack.font = "16px Rubik";
+            ctxBack.drawImage(backImage, 0, 0, 250, 150);
+            ctxBack.font = "12px Rubik";
             ctxBack.fillStyle = "#fff";
-            ctxBack.fillText("Doğum Tarihi: " + birthDate, 50, 100);
-            ctxBack.fillText("Seri No: " + documentNumber, 50, 120);
+            ctxBack.fillText(`Doğum Tarihi: ${birthDate}`, 20, 40);
+            ctxBack.fillText(`Seri No: ${documentNumber}`, 20, 60);
+
             backImage.src = canvasBack.toDataURL();
 
             document.getElementById('download-front').disabled = false;
